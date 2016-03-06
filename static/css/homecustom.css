@@ -1,0 +1,236 @@
+#pinBoot {
+position: relative;
+max-width: 100%;
+width: 100%;
+margin-top: 100px;   
+         }
+@media only screen and (min-width: 993px) {
+/*     #pinBoot {     
+     margin-left: 5%;    
+         }*/
+    }
+img {
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+.white-panel {
+  position: absolute;
+  background: white;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+               
+/*
+stylize any heading tags withing white-panel below
+*/
+
+.white-panel h1 {
+  font-size: 1em;
+}
+.white-panel h1 a {
+  color: #A92733;
+}
+.white-panel1:hover {
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
+  margin-top: -5px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.card-content{
+padding-top: 0 !important;                   
+}
+@media only screen and (min-width: 993px){               
+.card p{
+line-height: 1.4;               
+margin: 0;
+    color: #444;
+    font-size:12px;
+}               
+.card ul{
+margin:0;                   
+}        
+}
+.card-reveal::-webkit-scrollbar {
+    width: 0.5em;
+}
+ 
+.card-reveal::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+  #frameb{
+display:none;
+background:white;
+position:fixed;
+z-index:999;
+margin-top:5%;
+padding:25px;
+}
+#frame{
+display:none;
+background:white;
+position:fixed;
+z-index:23;
+margin-top:10%;
+padding:25px;
+}
+ 
+.card-reveal::-webkit-scrollbar-thumb {
+  background-color: teal;
+  outline: 1px solid slategrey;
+}               
+nav{
+background: teal;
+}
+@media only screen and (max-width: 600px){
+.mobile{
+display:block !important;
+}
+.web{
+display: none !important;
+}
+#pinBoot{
+margin-left: 1vw;        
+    }   
+.moblogo{
+margin-left:16vw;
+padding: 5px 10px 0 10px;
+height: 55px;    
+}
+.logout{
+position: relative;
+left:30px;
+top:-3px;
+z-index:999;     
+}
+.side-nav{
+width:195px !important;
+}
+.photoform{  
+}
+    
+#frame,#frameb{
+height:100vh;
+overflow-y: auto;
+}
+#frameb,#frame{
+top:0;
+left:0;    
+margin-top:0;
+height:100vh;  
+display:none;
+background:white;
+position:fixed;
+z-index:999;
+padding:25px;    
+}
+#frameb form,#frame form{
+margin-top:10vh;                 
+}
+#frameb a.addone,#frame a.addone{
+height: 25px;
+width: 25px;
+border-radius: 25px;    
+}    
+}
+ @media only screen and (min-width: 601px){
+ .mobile{
+display:none !important;
+}
+.web{
+display:block !important;
+}
+
+.logout{
+position: relative;
+left: 3px;
+top: -2px;
+z-index:999;     
+}
+.moblogo{
+height:60px;
+width:300px;
+margin-left:20%;
+}
+     .chatweb .btn-flat{
+       height:20px;  
+        padding:0; 
+     }
+#frameb.row,#frameb .input-field {
+margin:0;
+max-height: 150px;    
+}   
+}
+@media only screen and (max-width: 1100px){
+.mobilesearch{
+display:block !important;
+}
+.websearch{
+display: none !important;
+}
+}
+ @media only screen and (min-width: 1101px){
+ .mobilesearch{
+display:none !important;
+}
+.websearch{
+display:block !important;
+}
+}        
+.navcustom{
+background:#009677;
+width: 30%;
+float:right;
+position: relative !important;
+left:30%;
+top:0;
+height:64px !important;
+}                      
+                     form .row{
+                margin-bottom: 0 !important;
+            }
+            nav .container .row{
+                margin-top: 0 !important;
+            }
+            .card{
+                position: absolute !important;
+            }
+            .navbar-fixed nav{
+                top:0;
+            }
+            .parent a{
+                padding: 0;
+            }
+            .card .card-content .card-title{
+                line-height: 24px;
+                font-size: 20px;
+            }
+            .row{
+                margin-bottom: 0;
+            }
+                      h6 a{
+                          color:#009677;
+                      }
+            
+            body::after {
+  content: "";
+  background-image:url("/static/media/images/back.jpg");
+  opacity: 0.04;
+  top: 0;
+    background: FAFAFA;            
+  left: 0;
+  bottom: 0;
+  right: 0;
+    background-repeat:repeat;            
+  position: fixed;
+background-attachment: fixed;                
+  z-index: -1;   
+}
+                      .btn-flat{
+                          padding:0;
+                      }
+                     
+     
+        

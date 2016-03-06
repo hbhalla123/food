@@ -1,0 +1,21 @@
+@register.simple_tag
+def pusherable_subscribe(event, instance):
+
+    channel = u"{model}_{pk}".format(
+        model=instance._meta.model_name,
+        pk=instance.pk
+    )
+
+    return """
+    <script>
+    var pusher = new Pusher('{key}');
+    var channel = pusher.subscribe('{channel}');
+    channel.bind('{event}', function(data) {{
+      pusherable_notify('{event}', data);
+    }});
+    </script>
+    """.format(
+        key=settings.PUSHER_KEY,
+        channel=channel,
+        event=event
+    )

@@ -1,0 +1,330 @@
+{% load static %}
+{% block results %}
+
+		{% for item in item_list %}
+                    {% if item.photo.url %}
+                
+              <article class="card" id="recipe-{{item.id}}">
+                  <div>
+                    {%  if item.by.profile_pic  %}
+                     <img src="{{item.by.profile_pic.url}}" class="responsive-img circle" style="width:50px; height:50px;margin:10px 0 0 10px;"/>
+                    <span   style="font-weight:500;position:relative;left:0;top:-20px;"><a href="users/{{item.by.id}}">{{item.by}}</a></span>    
+                    <span class="right-align right"style="padding-right:10px;top:40px;position:relative;">{{item.on|timesince}}</span>
+
+                      {% else %}
+                    <img src="{% static "media/images//avatar3.png"%}" class="responsive-img circle" style="width:50px; height:50px;margin:10px 0 0 10px;">
+                    <span style="font-weight:500;position:relative;top:-25px;left:0;"><a href="users/{{item.by.id}}">{{item.by}}</a></span>
+                    <span class="right-align right"style="padding-right:10px;top:40px;position:relative;">{{item.on|timesince}}</span>  
+                    {% endif %}
+                  </div>
+                  
+                  <!--
+                    <div>
+              {%  if item.by.profile_pic  %}
+                     <img src="{{item.by.profile_pic.url}}" class="responsive-img circle" style="width:50px; height:50px;margin:10px 0 0 10px;"/>
+              <span  style="font-weight:500;position:relative;left:0;top:-25px;"><a href="users/{{item.by.id}}">{{item.by}}</a></span>
+                 <span class="right-align right"style="padding-right:10px;top:40px;position:relative;">{{item.on|timesince}}</span>
+                    {% else %}
+        <img src="{% static "media/images//avatar3.png"%}" class="responsive-img circle" style="width:50px; height:50px;margin:10px 0 0 10px;">
+                    <span style="font-weight:500;position:relative;top:-25px;left:0;"><a href="users/{{item.by.id}}">{{item.by}}</a></span>
+                 <span class="right-align right"style="padding-right:10px;top:40px;position:relative;">{{item.on|timesince}}</span>
+                    {% endif %}
+</div>
+
+   -->               
+                  
+                  
+
+    <div class="card-image waves-effect waves-block waves-light">
+                               
+    <img  class="activator" src="{{item.photo.url}}" alt="{{ item.image.method}} " id="recipe-{{item.id}}" />  
+                       <div style="color:white!important;position:relative;top:-30px;z-index:9;height:0!important;left:76%;font-weight:500;" id="likerecipe-span-{{item.id}}">{{item.points}} likes</div>
+                                           <div style="color:white!important;position:relative;top:-30px;z-index:9;height:0!important;left:7%; font-weight:500;"id="pinrecipe-span-{{item.id}}">{{item.pin_points}} pools</div>
+
+                 
+                  </div>    
+     <div class="card-content" style="background:#FAFAFA;">
+          
+         <!--
+         <span class="card-title activator grey-text text-darken-4 truncate">{{item.method|truncatewords:2}}<i class="material-icons right">more_vert</i></span>-->
+        <div class="divider"></div>
+         
+       <!--<span id="likerecipe-span-{{item.id}}" style="float:right;">{{item.points}} likes</span> <a onclick="show()" style="cursor:pointer;">likes</a>-->
+                  {% if user.is_authenticated and item not in user.recipe_liked.all %}
+ <span id="likerecipe-p-{{item.id}}">
+<span style="float:right;"><button style="background:#fff" href="/voterecipe/" id="recipe-vote-{{item.id}}" class="voterecipe waves-effect waves-teal btn-flat"><i class="material-icons" style="color:#333;width:36px;height:36px;">thumb_up</i></button></span></span>
+{% endif %}      
+         
+<!--<span class="right-align"id="pinrecipe-span-{{item.id}}">{{item.pin_points}}pools </span> <!-- <a onclick="show()" style="cursor:pointer;">likes</a>-->
+{% if user.is_authenticated and item not in user.recipe_pinned.all %}
+<span id="pinrecipe-p-{{item.id}}" style="vertical-align:top;">
+<span style="position:relative;left:-10px;"><button style="background:#fff;" href="/pin_recipe/" id="recipe-pin-{{item.id}}" class="pinrecipe waves-effect waves-teal btn-flat"><i class="material-icons" style="color:#333;width:36px;height:36px;">loyalty</i></button></span></span><!--#ee6e73;-->
+{% endif %} 
+<span class="chatweb">        
+   <i style="margin-top:5px;"class="material-icons commentrecreveal activator waves-effect waves-teal  btn-flat " id="comment-recbut-{{item.id}}">chat_bubble_outline</i>            
+    </span> 
+        
+                         
+                
+</div>
+                  <div class="card-reveal">
+        <span class="card-title grey-text text-darken-4">Comment here <i class="material-icons right correct">close</i></span>
+                     
+                <ul  class="parent" style="margin:0 0 10px 0;" id="commentrecipe-ul-{{item.id}}">
+                 
+            {% if item.recipe_comment_set.all %}
+          <a class=" waves-effect waves-teal btn-flat"> comments <i class="material-icons">list</i> </a>
+               {% for comments in item.recipe_comment_set.all %}           
+<li class="child"><a href="users/{{comments.by.id}}">{{comments.by}}</a>: {{comments}}</li>
+                            
+                                    {% endfor %}                  
+            {% else %}
+            <h6>No comments yet</h6>              
+            {% endif %}
+                    
+                            
+                    
+            
+                    
+                    
+              
+</ul>  
+       <!-- yahaahhhhhhhhhhhhhhh seeeeeeeeeeeeeeee--> 
+<div id="commentinput" class="row" style="height:70px;">
+    <div class="input-field col s10" style="margin:0;height:70px;">
+<label for="id_text">Comment</label> 
+<input id="{{item.id}}" maxlength="100" name="text" type="text" legth="100"  required = "required"/>
+<a href="/addcommentrecipe/" id="recipe-addcomment-{{item.id}}" class="addcommentrecipe waves-effect waves-teal btn-flat" style="position:relative;top:-40px;left:107.7%;padding:0;"><i class="material-icons" style="padding:0 10px;">send</i></a>
+    </div>
+</div>                                                            
+                  </div>
+      <div class="card-reveal revealrecdata-{{item.id}}">              
+                
+          <span class="card-title grey-text text-darken-4"> Ingredients<i class="material-icons right">close</i></span>
+      
+                         <p class="top">{{item.ingredients}}</p>
+                                  
+           <span class="card-title grey-text text-darken-4">Method</span>
+                                    <p>{{item.method}}</p>
+           <span class="card-title grey-text text-darken-4">Cuisine</span>
+          <p>{{item.cuisine}}</p>
+           <span class="card-title grey-text text-darken-4">Preparation Time</span>
+                                    <p>{{item.prep_time}}</p>
+                                  
+           <span class="card-title grey-text text-darken-4">Cooking Time</span>
+                                    <p>{{item.Cook_time}}</p>        
+                
+  
+                      <span class="card-title grey-text text-darken-4">Likers</span>
+
+<ul  id="myul">				{% if item.likers.all %}
+								
+								{% endif %}
+{% for likers in item.likers.all %}
+								
+                               <li style="display:inline;">{{likers}}</li>
+							   
+							   {% endfor %}
+                              <span class="card-title grey-text text-darken-4">Pinners</span>       
+	{% if item.pinners.all %}
+								
+								{% endif %}
+{% for pinners in item.pinners.all %}
+								
+                               <li style="display:inline;">{{pinners}}</li>
+							   
+							   {% endfor %}
+							   
+							   </ul>
+          
+              
+            {% if user.is_authenticated and item not in user.recipes_reported.all %}
+
+<p class="right-align"><a id="recipe-report-{{item.id}}" class="reportrecipe">report</a></p>
+{% endif %} 
+            {% if user.is_authenticated and item in user.recipes_reported.all %}
+           <a href="#" style="float:right;"><i class="medium material-icons" style="color:red;">info</i></a>
+           <style>
+               #photo-{{item.id}}{
+                 background:#ffd54f;
+                   opacity: 0.5;
+               }
+           </style>
+           {% endif %}
+        
+           
+           
+        <!--  <form action="/reportrecipe/" method="post" id="framed-{{item.id}}" class="framed">
+    {% csrf_token %}
+                 <input type="hidden" name="recipe_id" value="{{ item.id }}">
+    {{reportformrec.as_p}}                                         
+              
+    <input type="submit" value="Submit" />
+</form>-->
+              
+
+          
+    </div>
+  </article>         
+               
+             {% endif %}              
+             
+                
+            {% if not item.photo.url %}        
+              
+         
+         <article class="card" id="photo-{{item.id}}" >
+             <div>
+              {%  if item.by.profile_pic  %}
+                     <img src="{{item.by.profile_pic.url}}" class="responsive-img circle" style="width:50px; height:50px;margin:10px 0 0 10px;"/>
+              <span  style="font-weight:500;position:relative;left:0;top:-20px;"><a href="users/{{item.by.id}}">{{item.by}}</a></span>
+                 <span class="right-align right"style="padding-right:10px;top:40px;position:relative;">{{item.on|timesince}}</span>
+                    {% else %}
+        <img src="{% static "media/images//avatar3.png"%}" class="responsive-img circle" style="width:50px; height:50px;margin:10px 0 0 10px;">
+                    <span style="font-weight:500;position:relative;top:-25px;left:0;"><a href="users/{{item.by.id}}">{{item.by}}</a></span>
+                 <span class="right-align right"style="padding-right:10px;top:40px;position:relative;">{{item.on|timesince}}</span>
+                    {% endif %}
+</div>
+
+             
+             
+           {% if userphoto = True %}
+      <!--  <div style="postion:relative;">
+                  <a href="/deletephoto/" id="photo-delete-{{item.id}}"  class="delphoto" style="position:relative;left:76%;width:0;height:0;z-index:999;"><i class="material-icons small" style="width:0;height:0;">close</i></a></div>-->
+        
+        
+        <div  style="position:absolute;top:0;left:90%;z-index:9;">
+                  <a href="/deletephoto/" id="photo-delete-{{item.id}}" class="delphoto" ><i class="material-icons small" style="width:0;height:0;color:#ff9800;">delete</i></a></div>
+                  {% endif %}    
+   
+         <div class="card-image waves-effect waves-block waves-light">
+    <img  class="activator" src="{{item.image.url}}" alt="{{ item.image.description}}"/>
+         <div style="color:white!important;position:relative;top:-30px;z-index:9;height:0!important;left:76%;font-weight:500;" class="activator" id="like-span-{{item.id}}">{{item.points}} likes</div>
+                                           <div class="activator" style="color:white!important;position:relative;top:-30px;z-index:9;height:0!important;left:7%; font-weight:500;"id="pin-span-{{item.id}}">{{item.pin_points}} pools</div>
+       
+    </div>   
+         
+           
+    <div class="card-content">
+                                   
+       <!-- <h5 class="left-align"><small>by <a href="users/{{item.by.id}}">{{item.by}}</a></small></h5>
+        
+       
+         {% autoescape off %}
+      <span class="card-title activator grey-text text-darken-4 truncate">{{item.description|truncatewords:2}}<i class="material-icons right">more_vert</i></span>
+           {% endautoescape %}-->
+        <div class="divider"></div>
+    
+<!--<span id="like-span-{{item.id}}">{{item.points}}</span> likes <!-- <a onclick="show()" style="cursor:pointer;">likes</a>-->                                 
+									   {% if user.is_authenticated and item not in user.photos_liked.all %}
+        <span id="like-p-{{item.id}}">
+            <span style="float:right;"><button href="/vote/" id="photo-vote-{{item.id}}" class="vote waves-effect waves-teal  btn-flat" style="background:#fff" ><i class="material-icons " style="color:#333;width:36px;height:36px;">thumb_up</i></button></span></span>
+{% endif %}      
+<!--<span class="right-align"id="pin-span-{{item.id}}">{{item.pin_points}} pins </span> <!-- <a onclick="show()" style="cursor:pointer;">likes</a>-->  
+									   {% if user.is_authenticated and item not in user.photos_pinned.all %}
+<span id="pin-p-{{item.id}}">
+                             <span style="position:relative;left:-10px;"><button style="background:#fff" href="/pin_photo/" id="photo-pin-{{item.id}}" class="pin waves-effect waves-teal  btn-flat"><i class="material-icons small" style="color:#333;width:36px;height:36px;">loyalty</i></button></span></span>
+{% endif %}
+<span class="chatweb">     
+ <i  style="margin-top:5px;" class="material-icons commentreveal activator waves-effect waves-teal  btn-flat " id="comment-but-{{item.id}}">chat_bubble_outline</i>            
+    </span>   
+        
+           
+     
+        
+  
+<!--
+								   
+  {% if user.is_authenticated and item not in user.photos_reported.all %}
+
+<p class="right-align"><a  href="/reportphoto/" id="photo-report-{{item.id}}" class="vote">report</a></p>
+{% endif %} 
+            -->                                                                         
+    </div>
+          
+              <div class="card-reveal">
+                  
+                 <span class="card-title grey-text text-darken-4">Comment here <i class="material-icons right correct">close</i></span>
+                  
+                      <ul  class="parent" style="margin:0 0 10px 0;" id="commentphoto-ul-{{item.id}}">
+                 
+            {% if item.comment_set.all %}
+          <a class=" waves-effect waves-teal btn-flat"> comments <i class="material-icons">list</i> </a>
+                          {% for comments in item.comment_set.all %}
+           
+<li class="child"><a href="users/{{comments.by.id}}">{{comments.by}}</a>: {{comments}}</li>
+                            
+                                    {% endfor %}                  
+            {% else %}
+            <h6>No comments yet</h6>              
+            {% endif %}
+</ul>  
+       <!-- yahaahhhhhhhhhhhhhhh seeeeeeeeeeeeeeee--> 
+<div id="commentinput" class="row" style="height:70px;">
+    <div class="input-field col s10" style="margin:0;height:70px;">
+    <form method="post">
+<label for="id_text">Comment</label> 
+<input id="photocommentinput-{{item.id}}" maxlength="100" name="text" type="text" length="100" />
+<a href="/addcomment/" type="submit" id="photo-addcomment-{{item.id}}" class="addcomment" style="position:relative;top:-40px;left:107.7%;padding:0;"><i class="material-icons" style="padding:0 10px;">send</i></a>
+        </form>
+    </div>
+</div>
+                  
+
+             </div>   
+       <div class="card-reveal revealdata-{{item.id}}">
+           
+      <span class="card-title grey-text text-darken-4"> Description<i class="material-icons">description</i><i class="material-icons right">close</i></span>
+       {% autoescape off %}
+                         <p class="top">{{item.description}}  Vegetables and Tomato Cream <span>or</span> Celestino consomé <span>or</span> Arepas or tostones with Ogao</p>
+                                    {% endautoescape %}
+           <span class="card-title grey-text text-darken-4">Cuisine</span>
+                                    <p>{{item.cuisine}}</p>
+           
+           
+           
+                      <span class="card-title grey-text text-darken-4">Likers</span>
+
+<ul  id="myul">				{% if item.likers.all %}
+								
+								{% endif %}
+{% for likers in item.likers.all %}
+								
+                               <li style="display:inline;">{{likers}}</li>
+							   
+							   {% endfor %}
+                              <span class="card-title grey-text text-darken-4">Pinners</span>       
+	{% if item.pinners.all %}
+								
+								{% endif %}
+{% for pinners in item.pinners.all %}
+								
+                               <li style="display:inline;">{{pinners}}</li>
+							   
+							   {% endfor %}
+							   </ul>
+           
+           
+            {% if user.is_authenticated and item not in user.photos_reported.all %}
+
+<p class="right-align"><a id="photo-report-{{item.id}}" class="reportphoto">report</a></p>
+{% endif %} 
+            {% if user.is_authenticated and item in user.photos_reported.all %}
+           <a href="#" style="float:right;"><i class="medium material-icons" style="color:red;">info</i></a>
+           <style>
+               #photo-{{item.id}}{
+                 background:#ffd54f;
+                   opacity: 0.5;
+               }
+           </style>
+           {% endif %}
+        
+           
+               
+    </div>
+  </article>         
+               
+             {% endif %}
+       
+                {% endfor %}
+                {% endblock %}

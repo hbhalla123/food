@@ -1,0 +1,212 @@
+ #overlay{
+width:100%;
+height:100%;
+position:fixed;
+background:#ffd54f;
+opacity:0.97;
+display:none;
+z-index:998;
+top:0;
+left:0;
+}
+.rowbut{
+display:flex;
+justify-content:space-around;
+}
+#frame,#frameb{
+display:none;
+background:white;
+position:fixed;
+z-index:999;
+padding:25px;
+margin: 0 auto;
+top:5%;    
+}
+    #cloud-scroll {
+min-height:600px;;
+width: 100%; 
+z-index: -12;
+position: fixed;
+top:0;
+left:0;
+opacity: 0.04;        
+background: url("/static/media/images/back.jpg") repeat;
+bottom: 0;
+    }
+
+ul{
+list-style:none;
+}
+    #pinBoot{
+        display: flex;
+        flex-direction:row;
+        flex-flow: row wrap;
+           justify-content: space-around;
+        
+    }
+    .mycontainer{
+    width:100%;
+    margin:0 !important;    
+        
+    }
+
+    .cardcorrect{
+        width:308px;
+    }
+.topbox{
+   /* height:400px;*/
+      background:#009677;
+    color:#333;
+    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12); 
+    padding:20px; 
+
+}
+    body{
+background:#FAFAFA;
+    }
+    .custom label{
+    font-size: 14px;
+    font-weight: 400;    
+     line-height: 1.6;
+        font-family:Roboto;
+        color:#565656;
+    }
+    .custom{
+padding:0 50px 0 50px !important;
+    }
+   
+    h4{
+        color:#565656;
+    }
+    .card-reveal p{
+         line-height: 1.4;               
+    margin: 0;
+    color: #444;
+    font-size:12px;    
+    }
+.story{
+    position: relative;
+    left: 10px;
+    font-size:40px !important;
+    top: 6px;
+}
+.mybutton{
+    position:absolute; 
+    top: 297px; 
+    right: 280px;
+    z-index:3;
+}
+.connect{
+    transform: rotatez(90deg);
+    position: relative;
+    top: -98px;
+    left: 140px;
+    font-weight:500;
+    font-size: 62px;
+}
+@media only screen and (max-width: 600px){
+.side-nav a {
+font-size: 18px;
+font-weight: 300;    
+    }
+.topbox{
+    /*height:450px;*/
+    background:#009677;
+    color:#333;
+    opacity:1;
+   /* width: 99.5vw;
+    height: 100vh;
+    margin: 0 !important;
+    opacity: 1;
+    left: -18px;
+    position: relative;*/
+}
+    .procont{
+    width: 95.5vw;
+    margin: 0 !important;
+    margin-right: 0 !important;
+    left: -11px;
+    position: relative;    
+    }    
+    #storybut{
+    float:right; 
+    padding:0 15px;
+    }
+    #connectbut{
+    float:left; 
+    padding:0 15px;
+    }
+    .topbox button{
+background:#ff9800; 
+    }    
+    .topbox button a{
+    color:#fff;    
+    }    
+.divider{
+color:#fff;    
+    }    
+.mybutton{
+position:absolute; 
+top: 753px; 
+right:46px;
+z-index:3;     
+     }
+.h4correct{
+padding-right: 55px;    
+}
+.cardcorrect {
+width: 100%;
+}
+    .custom{
+        height: 40vh;
+    padding:0;
+    }    
+.custom p{
+margin:0;    
+font-size: 20px;
+line-height: 1.4;
+color:#fff;    
+text-align: center;    
+    }
+    h3{
+    text-align: center;    
+    }   
+    .profimage{
+    display: table-cell;
+    text-align: center;
+}
+       
+#frameb{
+top:0;
+left:0;    
+margin-top:0;
+height:100vh;    
+}
+#frameb form{
+margin-top:10vh;                 
+    }    
+    
+}
+.custom p{
+margin:0;    
+font-size: 20px;
+line-height: 1.4;
+color:#fff;    
+text-align: center;    
+    }
+ h5,.name{
+        color:#fff;
+    }    
+ @media only screen and (min-width: 601px){
+ /*.custom p{
+    font-family:Roboto;        
+    line-height: 1.4;               
+    margin: 0;
+    color: #fff;
+    font-weight: 300;    
+    font-size:18px;    
+    }*/
+     .rowbut{
+        margin-left: 30px !important; 
+     }     
+}

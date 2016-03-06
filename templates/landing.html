@@ -1,0 +1,628 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="theme-color" content="teal">
+
+    <!-- CSS  --> 
+    <link href="{% static "min/plugin-min.css"%}" type="text/css" rel="stylesheet">
+    <link href="{% static "min/custom-min.css"%}" type="text/css" rel="stylesheet">
+        <link href="{% static "css/style.css"%}" type="text/css" rel="stylesheet">
+   	  <link  type="text/css" href="{% static "css/materialize.min.css"%}" rel="stylesheet"  media="screen,projection">
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    
+<style>
+    #overlay{
+width:100%;
+height:100%;
+position:fixed;
+background:#ffd54f;
+opacity:0.97;
+display:none;
+z-index:2;
+}
+#frame,#framelogin{
+display:none;
+background:white;
+position:fixed;
+z-index:3;
+margin-top:10%;
+padding:25px;
+}
+@media only screen and (max-width: 600px){
+#framelogin{
+    margin-top:30vh;
+    }
+    
+    }
+    form .row{
+        margin-bottom: 0!important;
+    }
+   form .row .col.s6 {
+    width: 50%;
+    margin-left: 0;
+    margin-bottom: 0 !imprtant;    
+    height: 55px;
+}
+    .web{
+        display:none;
+    }    
+    </style>
+</head>
+<body id="top" class="scrollspy">
+     <div id="overlay">
+	</div>
+    <div class="row" style="margin-bottom:0;">
+         <div class="col m4 offset-m4 " id="frame">
+             <div class="fixed-action-btn web" style=" right:31% ;top:14%;z-index:20;">
+    <a class="btn-floating btn-large " style="background:#FF9800;">
+      <i class="large material-icons">account_circle</i>
+    </a>
+  </div> 
+    
+<form class="form-signup" action="/sign_up/" method="post">{% csrf_token %}
+    <div class="row">
+<div class="input-field  col s6 ">
+        <label>First name</label>
+      <input id="id_first_name" maxlength="30" name="first_name" type="text" class="validate">
+        </div>
+   
+<div class="input-field  col s6 ">
+        <label>Last name</label>
+       <input id="id_last_name" maxlength="30" name="last_name" type="text">
+    </div> 
+    </div>
+
+   <div class="row">
+<div class="input-field  col s6 ">    
+        {{ form.email.errors }}            
+        <label>E-mail</label>
+       <input id="id_email" maxlength="254" name="email" type="email">
+    </div>    
+    
+    
+<div class="input-field  col s6 ">
+    {{form.errors.values.0}}                
+        <label>Username</label>
+<input id="id_username" maxlength="30" name="username" type="text">        
+        </div>
+    </div>
+    
+<div class="row">
+<div class="input-field  col s6 ">      
+                    
+        <label>phone</label>                   
+        <input id="id_phone" maxlength="15" name="phone" type="text">
+    </div>        
+<div class="input-field  col s6 ">                    
+        <label>birthday</label>                    
+       <input id="id_dob" name="dob" type="date" class="datepicker">
+    </div>
+  
+    </div>
+<div class="input-field  col s6"> 
+	                
+      <select id="id_gender" name="gender">
+<option value="M" selected="selected">Male</option>
+<option value="F">Female</option>
+</select>
+     <label for="id_gender">gender</label>
+ 
+    </div>
+    
+<div class="row">
+<div class="input-field  col s12 ">        
+    {{form.errors.values.1}}            
+        <label>Password</label>                   
+<input id="id_password1" name="password1" type="password">    
+    </div>
+    </div>
+<div class="row">
+<div class="input-field  col s12 ">        
+    <label>Password again</label>
+<input id="id_password2" name="password2" type="password">    
+    </div>
+    </div>
+    
+<button type="submit" name="submit" class="btn waves-effect waves-light red darken-1" value="Create account">submit<i class="mdi-content-send right white-text"></i></button>
+             
+</form>
+          
+</div>
+        </div>
+    <div class="row" style="margin:0;">
+    
+                                       <div class="col m4 offset-m4 " id="framelogin">
+								 <form  class="col s12" action="/login/" method="POST"  role="form" > 
+			 {% csrf_token %}
+          <div class="row">
+        <div class="input-field col m6 s12">
+            <label for="id_username">Username:</label>
+			<input id="id_username" maxlength="254" name="username" type="text" class="validate ">
+			</div>
+			<div class="input-field col m6 s12">
+<label for="id_password">Password:</label>
+<input id="id_password" name="password" type="password"  >
+           </div>
+<div class="col s5" style="margin-left:29%;">
+<button class="btn waves-effect waves-light red darken-1" type="submit"  value="Log In" id="login-submit"tabindex="4">login
+												  <i class="mdi-content-send right white-text"></i></button>
+											  
+              </div></div>
+						<div class="row">				
+      
+						<p class="center-align">or</p>
+					
+<a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}" style="position:relative;left:29%;">Login with Facebook</a>		   
+            </div>
+  </form>
+                </div>      
+    </div>
+<!-- Pre Loader -->
+<div id="loader-wrapper">
+    <div id="loader"></div>
+ 
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+ 
+</div>
+    
+ 
+<!--Navigation-->
+ <div class="navbar-fixed">
+    <nav id="nav_f" class="default_color" role="navigation">
+        <div class="container">
+            <div class="nav-wrapper">
+            <a href="#" id="logo-container" class="brand-logo"><img style="height:64px;width:256px;"src="{% static "media/images/logo5.png"%}" class="responsive-img"/></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#intro">What is foodchaps?</a></li>
+                    <li><a href="#work">Foody</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a class="addlogin">Join us</a></li>
+                </ul>
+                <ul id="nav-mobile" class="side-nav">
+                    <li><a href="#intro">What is foodchaps?</a></li>
+                    <li><a href="#work">Foody</a></li>
+                    <li><a href="#team">Team</a></li>
+                    <li><a class="addlogin">Join us</a></li>
+                </ul>
+            <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<!--Hero-->
+<div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+        <h1 class="text_h center header cd-headline letters type">
+            <span>I Love</span> 
+            <span class="cd-words-wrapper waiting">
+                <b class="is-visible">eating!!</b>
+                <b>Food </b>
+            <!--    <b>developing</b>-->
+            </span>
+        </h1>
+    </div>
+<button style="position:absolute;top:60vh;left:35.5vw;background:#ff9800; color:#fff;" class="btn-large waves-effect waves-light add"><a  style="color:#fff;">signup</a></button>
+
+</div>
+
+     
+      
+
+<!--Intro and service-->
+<div id="intro" class="section scrollspy">
+    <div class="container">
+        <div class="row">
+            <div  class="col s12">
+                <h2 class="center header text_h2"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. <span class="span_h2"> Phasellus  </span>vestibulum lorem risus, nec suscipit lorem <span class="span_h2"> laoreet quis.</span> </h2>
+            </div>
+
+            <div  class="col s12 m4 l4">
+                <div class="center promo promo-example">
+                    <i class="mdi-image-flash-on"></i>
+                    <h5 class="promo-caption">Speeds up development</h5>
+                    <p class="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="center promo promo-example">
+                    <i class="mdi-social-group"></i>
+                    <h5 class="promo-caption">User Experience Focused</h5>
+                    <p class="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="center promo promo-example">
+                    <i class="mdi-hardware-desktop-windows"></i>
+                    <h5 class="promo-caption">Fully responsive</h5>
+                    <p class="light center">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Work-->
+<div class="section scrollspy" id="work">
+    <div class="container">
+        <h2 class="header text_b">Fooody </h2>
+        <div class="row">
+            <div class="col s12 m4 l4">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static "media/images//snack.jpg"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>
+                        <p><a href="#">Project link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>
+                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator"src="{% static "media/images//pizza.jpg"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>
+                        <p><a href="#">Project link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>
+                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static "media/images//muffin.jpg"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>
+                        <p><a href="#">Project link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>
+                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="row">
+            <div class="col s12 m4 l4">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static "media/images//cherry.jpg"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>
+                        <p><a href="#">Project link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>
+                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static "media/images//dessert.jpg"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>
+                        <p><a href="#">Project link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>
+                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="card">
+                    <div class="card-image waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static "media/images//salad.jpg"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Project Title <i class="mdi-navigation-more-vert right"></i></span>
+                        <p><a href="#">Project link</a></p>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">Project Title <i class="mdi-navigation-close right"></i></span>
+                        <p>Here is some more information about this project that is only revealed once clicked on.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Parallax-->
+    <div class="parallax-container ">
+    <div class="parallax"><img src="{% static "media/images//angoor.jpg"%}"></div>
+</div>
+
+<!--Team-->
+<div class="section scrollspy" id="team">
+    <div class="container">
+        <h2 class="header text_b"> Our Team </h2>
+        <div class="row">
+            <div class="col s12 m3">
+                <div class="card card-avatar">
+                    <div class="waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static "media/images//avatar1.png"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Flash <br/>
+                            <small><em><a class="red-text text-darken-1" href="#">CEO</a></em></small></span>
+                        <p>
+                            <a class="blue-text text-lighten-2" href="https://www.facebook.com/joash.c.pereira">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://twitter.com/im_joash">
+                                <i class="fa fa-twitter-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://plus.google.com/u/0/+JoashPereira">
+                                <i class="fa fa-google-plus-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">
+                                <i class="fa fa-linkedin-square"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card card-avatar">
+                    <div class="waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static "media/images//avatar2.png"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Cat Woman<br/>
+                            <small><em><a class="red-text text-darken-1" href="#">Designer</a></em></small>
+                        </span>
+                        <p>
+                            <a class="blue-text text-lighten-2" href="https://www.facebook.com/joash.c.pereira">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://twitter.com/im_joash">
+                                <i class="fa fa-twitter-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://plus.google.com/u/0/+JoashPereira">
+                                <i class="fa fa-google-plus-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">
+                                <i class="fa fa-linkedin-square"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card card-avatar">
+                    <div class="waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static "media/images//avatar3.png"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">
+                            Capt. America <br/>
+                            <small><em><a class="red-text text-darken-1" href="#">CMO</a></em></small></span>
+                        <p>
+                            <a class="blue-text text-lighten-2" href="https://www.facebook.com/joash.c.pereira">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://twitter.com/im_joash">
+                                <i class="fa fa-twitter-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://plus.google.com/u/0/+JoashPereira">
+                                <i class="fa fa-google-plus-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">
+                                <i class="fa fa-linkedin-square"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m3">
+                <div class="card card-avatar">
+                    <div class="waves-effect waves-block waves-light">
+                        <img class="activator" src="{% static "media/images//avatar4.png"%}">
+                    </div>
+                    <div class="card-content">
+                        <span class="card-title activator grey-text text-darken-4">Robin<br/>
+                            <small><em><a class="red-text text-darken-1" href="#">Developer</a></em></small></span>
+                        <p>
+                            <a class="blue-text text-lighten-2" href="https://www.facebook.com/joash.c.pereira">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://twitter.com/im_joash">
+                                <i class="fa fa-twitter-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://plus.google.com/u/0/+JoashPereira">
+                                <i class="fa fa-google-plus-square"></i>
+                            </a>
+                            <a class="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">
+                                <i class="fa fa-linkedin-square"></i>
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Footer-->
+<footer id="contact" class="page-footer default_color scrollspy">
+    <div class="container">  
+        <div class="row">
+            <div class="col l6 s12">
+                <!--
+                <form class="col s12" action="contact.php" method="post">
+                    <div class="row">
+                        <div class="input-field col s6">
+                            <i class="mdi-action-account-circle prefix white-text"></i>
+                            <input id="icon_prefix" name="name" type="text" class="validate white-text">
+                            <label for="icon_prefix" class="white-text">First Name</label>
+                        </div>
+                        <div class="input-field col s6">
+                            <i class="mdi-communication-email prefix white-text"></i>
+                            <input id="icon_email" name="email" type="email" class="validate white-text">
+                            <label for="icon_email" class="white-text">Email-id</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <i class="mdi-editor-mode-edit prefix white-text"></i>
+                            <textarea id="icon_prefix2" name="message" class="materialize-textarea white-text"></textarea>
+                            <label for="icon_prefix2" class="white-text">Message</label>
+                        </div>
+                        <div class="col offset-s7 s5">
+                            <button class="btn waves-effect waves-light red darken-1" type="submit">Submit
+                                <i class="mdi-content-send right white-text"></i>
+                            </button>
+                        </div>
+                    </div>
+                </form>-->
+                                                        
+            <div class="col l3 s12">
+                <button class="js-push-button" disabled>
+  Enable Push Messages  
+</button>
+                <h5 class="white-text">joashpereira.com</h5>
+                <ul>
+                    <li><a class="white-text" href="http://www.joashpereira.com/">Home</a></li>
+                    <li><a class="white-text" href="http://www.joashpereira.com/blog">Blog</a></li>
+                </ul>
+            </div>
+            <div class="col l3 s12">
+                <h5 class="white-text">Social</h5>
+                <ul>
+                    <li>
+                        <a class="white-text" href="https://www.behance.net/joashp">
+                            <i class="small fa fa-behance-square white-text"></i> Behance
+                        </a>
+                    </li>
+                    <li>
+                        <a class="white-text" href="https://www.facebook.com/joash.c.pereira">
+                            <i class="small fa fa-facebook-square white-text"></i> Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a class="white-text" href="https://github.com/joashp">
+                            <i class="small fa fa-github-square white-text"></i> Github
+                        </a>
+                    </li>
+                    <li>
+                        <a class="white-text" href="https://www.linkedin.com/in/joashp">
+                            <i class="small fa fa-linkedin-square white-text"></i> Linkedin
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div class="footer-copyright default_color">
+        <div class="container">
+            Made by <a class="white-text" href="http://joashpereira.com">Joash Pereira</a>. Thanks to <a class="white-text" href="http://materializecss.com/">materializecss</a>
+        </div>
+    </div>-->
+</footer>
+
+
+    <!--  Scripts-->
+    <script  src="{% static "js/jquery-2.1.3.js"%}" type="text/javascript"></script>
+    <script>
+    $(function(){
+            
+        $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 100
+        });
+$(".add").click(function(){
+
+$("#overlay").fadeIn();
+$("#frame").fadeIn();
+});
+$(".addlogin").click(function(){
+
+$("#overlay").fadeIn();
+$("#framelogin").fadeIn();
+});
+$("#addone").click(function(){
+$("#framelogin").fadeOut();
+$("#frame").fadeOut();
+$("#overlay").fadeOut();
+    
+});
+$("#overlay").click(function(){
+$(this).fadeOut();
+$("#frame").fadeOut();
+$("#framelogin").fadeOut();    
+});
+        
+});         
+</script>
+    <script  src="{% static "js/smooth.js"%}" type="text/javascript"></script>
+    <script>
+            $(function () {
+  $.srSmoothscroll({
+    // defaults
+    step: 55,
+    speed: 500,
+    ease: 'swing',
+    target: $('body'),
+    container: $(window)
+  })
+})
+  </script>  
+       <script>
+$(document).ready(function() {
+    $('select').material_select();
+  });
+       </script>
+ <script>
+     var isPushEnabled = false;
+
+
+window.addEventListener('load', function() {  
+  var pushButton = document.querySelector('.js-push-button');  
+  pushButton.addEventListener('click', function() {  
+    if (isPushEnabled) {  
+      unsubscribe();  
+    } else {  
+      subscribe();  
+    console.log("subsdone");    
+    }  
+  });
+
+  // Check that service workers are supported, if so, progressively  
+  // enhance and add push messaging support, otherwise continue without it.  
+  if ('serviceWorker' in navigator) {  
+    navigator.serviceWorker.register("{% static "js/service-worker.js"%}")  
+    .then(initialiseState);  
+  } else {  
+    console.warn('Service workers aren\'t supported in this browser.');  
+  }  
+});
+
+     
+    </script>
+        <script src="{% static "js/service-worker.js"%}" type="text/javascript"></script>
+    <script src="{% static "min/plugin-min.js"%}" type="text/javascript"></script>
+    <script src="{% static "min/custom-min.js"%}" type="text/javascript"></script>
+        <script  src="{% static "js/materialize.min.js"%}" type="text/javascript"></script>
+
+    </body>
+</html>

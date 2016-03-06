@@ -1,0 +1,323 @@
+{% load static %}
+	<!DOCTYPE html>
+	<html>
+    <head>
+	 <script  src="{% static "js/jquery-2.1.3.js"%}" type="text/javascript"></script>
+		<!--<script  src="{% static "js/comment.js"%}" type="text/javascript"></script>-->
+		<script  src="{% static "js/bootstrap.min.js"%}" type="text/javascript"></script>
+
+        <title> {%block title%} Welcome  {% endblock %} </title>
+     <!--  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+        <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+       -->
+	       <link  type="text/css" href="{% static "css/boot.css"%}" rel="stylesheet">
+			 <link  href="{% static "css/home.css"%}" type="text/css"  rel="stylesheet">
+			 <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+		  <script>
+        $(document).ready(function(){
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+function vote(recipeID){
+$.ajax({
+	type:"POST",
+	url:"/deleterecipe/",
+	data:{"recipe":recipeID},
+	success: function(){
+	$("#recipe-delete-" + recipeID).hide();
+	$("#recipe-" + recipeID).hide();
+	},
+	headers:{
+	'X-CSRFToken' :csrftoken
+	}
+});
+return false;
+
+}
+$(".delete").click(function(){
+
+var recipeID=parseInt(this.id.split("-")[2]);
+console.log(recipeID);
+
+return vote(recipeID);
+
+})
+
+
+function pin(recipeID){
+$.ajax({
+	type:"POST",
+	url:"/pin_recipe/",
+	data:{"recipe":recipeID},
+	success: function(result){
+	$("#recipe-pin-" + recipeID).hide();
+        $("#pin-span-" + recipeID).hide();
+        $("#pin-p-" + recipeID).prepend('<span></span>');
+        $("#pin-p-" + recipeID + ">" + "span").attr('id', "pinspan" + recipeID);
+        $("#pinspan" + recipeID).text(result);
+        
+        
+        
+	
+    },
+	headers:{
+	'X-CSRFToken' :csrftoken
+	}
+});
+return false;
+
+}
+$("button.pin").click(function(){
+
+var recipeID=parseInt(this.id.split("-")[2]);
+console.log(recipeID);
+
+return pin(recipeID);
+
+})
+
+
+
+function addcomment(photoID,text){
+$.ajax({
+	type:"POST",
+	url:"/addcommentrecipe/",
+	data:{"recipe":photoID,"text":text},
+	success: function(){
+        console.log("hogya");
+	$("#like-p-" + photoID).append('<p></P>');
+        counter=Math.round(Math.random() * 323234 + 5)
+    $("#like-p-" + photoID + ">" + "p").attr('id', "commentp" + counter);
+        
+    $("#commentp" + counter).text(text);    
+        
+       
+	},
+	headers:{
+	'X-CSRFToken' :csrftoken
+	}
+});
+return false;
+
+}
+$("a.addcomment").click(function(){
+var photoID=parseInt(this.id.split("-")[2]);
+console.log(photoID);
+photomy=photoID+"";
+    var text=$("#"+photomy).val();
+    console.log(text);
+return addcomment(photoID,text);
+
+})
+
+});
+</script>
+    </head>
+    <body>
+        <!--<input type ="text" id = "autoComplete">
+        <script>
+            $(document).ready(function() {
+                $('#autoComplete').autocomplete({source: '/searchuser', minlength: 2});
+            });
+        </script>
+		-->
+		<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="">Foodit!</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="/profile">Profile</a>
+                    </li>
+                    <li>
+                        <a href="/userphoto">Photobucket</a>
+                    </li>
+                    <li>
+                        <a href="/home">Photopond</a>
+                    </li>
+                     <li>
+                        <a href="/recipes">Recipes</a>
+                    </li>
+                     <li>
+                        <a href="/friends">Connections</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        </nav>
+        <br>
+        <br>
+	<h1>hey {{user}} !</h1>
+
+        
+        
+{% for item in recipe %}
+
+<figure class="text-overflow col-md-3" style="background:white;" id="recipe-{{item.id}}">
+<a href="/deleterecipe/" id="recipe-delete-{{item.id}}" class="delete glyphicon glyphicon-remove-circle" style="margin-bottom:5px;"></a>
+
+                                <a href="#">
+                                    <img src="{{item.photo.url}}" id="photo-{{item.id}}"/>
+                                </a>
+    {% if user.is_authenticated and item not in user.recipe_liked.all %}
+
+<span style="float:right;"><a href="/vote/" id="photo-vote-{{item.id}}" class="vote">vote</a></span></p>
+{% endif %} 
+        
+        
+        
+        
+        <ul>                                  
+ {% for comments in item.recipe_comment_set.all %}
+                                    
+<li>{{comments}} <span> by {{comments.by}}</span></li>
+                            
+                                    {% endfor %}
+                                    
+</ul>  
+<div id="commentinput" class="row">
+<label for="id_text">Comment:</label> 
+<input id="{{item.id}}" maxlength="100" name="text" type="text"/>
+<a href="/addcommentrecipe/" id="photo-addcomment-{{item.id}}" class="addcomment">submit</a>
+</div>
+        
+        
+        
+        
+        
+        
+							
+                                <figcaption>
+
+                                        <h3><small>by {{item.by}}</small></h3>
+                         <p class="top"><span>INGREDIENTS:</span><br>{{item.ingredients}}</p>
+                        <p class="top"><span>METHOD:</span><br>{{item.method}}</p>
+                 <p class="top"><span>PREPARATION TIME:</span>{{item.prep_time}}</p>
+                <p class="top"><span>COOKING TIME:</span>{{item.Cook_time}}</p>                    
+
+
+						 
+                               
+                                </figcaption>
+        
+        
+        
+        
+        
+        
+                                         
+                                    
+	{% if item.pinners.all %}
+								pinned by
+								{% endif %}
+{% for pinners in item.pinners.all %}
+								
+                               <li style="display:inline;">{{pinners}}</li>
+							   
+							   {% endfor %}
+							   </ul>
+						 <p id="pin-p-{{item.id}}"><span id="pin-span-{{item.id}}">{{item.pin_points}}</span> pins <!-- <a onclick="show()" style="cursor:pointer;">likes</a>-->                                     
+									   {% if user.is_authenticated and item not in user.recipe_pinned.all %}
+
+<span style="float:right;"><button href="/pin_recipe/" id="recipe-pin-{{item.id}}" class="pin">pin</button></span></p>
+{% endif %}                                     
+                                    
+                                    
+            
+        
+        
+        
+        
+        
+        
+								
+                            </figure>
+							{% endfor %}
+
+        
+   
+<div class="container">      
+<form action="/addrecipe/" method="post" enctype="multipart/form-data" role="form">{% csrf_token %}
+<!--<div class="form-group col-lg-6 col-lg-offset-6">
+<label for="id_image">Image:</label> 
+<input id="id_image" name="image" type="file" class="form-control"/>
+</div>-->
+
+<div class="row">
+<div class="form-group col-lg-3">
+<span class="btn btn-default btn-file">
+imagefile <input type="file" id="id_photo" name="photo">
+</span>
+</div>
+</div>
+<div class="row">
+<div class="form-group col-lg-9">
+<label for="id_title">Title:</label> 
+<textarea cols="5" id="id_description" maxlength="100" name="title" rows="3" class="form-control">
+</textarea>
+</div>
+</div>
+<div class="row">
+<div class="form-group col-lg-9">
+<label for="id_title">Ingredients:</label> 
+<textarea cols="10" id="id_ingredients" maxlength="1000" name="ingredients" rows="5" class="form-control">
+</textarea>
+</div>
+</div>    
+<div class="row">
+<div class="form-group col-lg-9">
+<label for="id_title">Method:</label> 
+<textarea cols="15" id="id_method" maxlength="2000" name="method" rows="10" class="form-control">
+</textarea>
+</div>
+</div>    
+<div class="row">
+<div class="form-group col-lg-9">
+<label for="id_prep_time">Preparation Time:</label> 
+<input type="text" class="form-control" name="prep_time" id="id_prep_time" >
+</div>
+</div>
+<div class="row">
+<div class="form-group col-lg-9">
+<label for="id_cook_time">Cooking Time:</label> 
+<input type="text" class="form-control" name="cook_time" id="id_cook_time" >
+</div>
+</div>    
+<div class="row">
+<div class="form-group col-lg-3">
+<input type="submit" value="addrecipe" name="addrecipe" class="form-control" id="addone"/>
+</div>
+</div>
+</form>
+</div>          
+                
+
+</body>
+</html>

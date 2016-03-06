@@ -1,0 +1,124 @@
+figure {
+  
+  box-shadow: 9px 8px 16px 0px rgba(50, 50, 50, 0.5);
+  -webkit-box-shadow: 9px 8px 16px 0px rgba(50, 50, 50, 0.5);
+  -moz-box-shadow: 9px 8px 16px 0px rgba(50, 50, 50, 0.5);
+  -webkit-perspective: 1000px;
+  perspective: 1000px;
+  display: block;
+  
+}
+media="screen"
+.text-overflow {
+  overflow: hidden !important;
+}
+figure {
+  margin-top:25px;
+}
+figure {
+  display: block;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 40px;
+  -webkit-margin-end: 40px;
+}
+media="screen"
+.center {
+  text-align: center;
+}
+
+body {
+ 
+  font-size: 16px;
+  letter-spacing: 0.01rem;
+  color: #565656;
+  line-height:1.6;
+  font-weight:300;
+  background-color: #fff;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+figure img {
+  max-width: 100%;
+  max-height:100%;
+
+}
+img:hover{
+  -webkit-transition: opacity 0.35s, -webkit-transform 2.35s;
+  transition: opacity 0.35s, transform 2.35s;
+  transform: translate3d(0,0,100px);
+
+}
+
+media="screen"
+img {
+  vertical-align: middle;
+}
+media="screen"
+img {
+  border: 0;
+}
+media="screen"
+@media handheld, only screen and (max-width: 1440px)
+.menu figcaption {
+  padding: 9% 25px 25px 25px;
+}
+
+media="screen"
+.menu figcaption {
+  background-color: #fbfbfb;
+ 
+  
+ 
+  padding: 15% 25px 25px 25px;
+  border: 1px solid #f6f6f6;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+#overlay{
+
+width:100%;
+height:100%;
+position:fixed;
+background:black;
+opacity:0.7;
+display:none;
+z-index:22;
+}
+.framed{
+    display:none;
+background:white;
+position:fixed;
+z-index:999;
+margin-top:30vh;    
+padding:25px;
+}
+.framec{
+width:100vh;    
+display:none;
+background:white;
+position:fixed;
+z-index:999;
+margin-top:30vh;
+padding:25px;
+}
