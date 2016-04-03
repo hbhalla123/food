@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'kh17=r**+g6zcq0z!^0spw+41d$i@-#!)z!7fes$a$yz#&!y^%'
+SECRET_KEY = 'kh17=r**+g6zcq0z@################7fes$a$yz#&!y^%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -161,10 +161,10 @@ AUTHENTICATION_BACKENDS = (
 'social_auth.backends.facebook.FacebookBackend',
 )
 LOGIN_REDIRECT_URL = '/'
-SOCIAL_AUTH_FACEBOOK_KEY ='1583235591960696'
-SOCIAL_AUTH_FACEBOOK_SECRET ='3642368bdf020ebd1d320d7025e79cc7'
-FACEBOOK_APP_ID='1583235591960696'
-FACEBOOK_APP_SECRET='3642368bdf020ebd1d320d7025e79cc7'
+SOCIAL_AUTH_FACEBOOK_KEY ='##############'
+SOCIAL_AUTH_FACEBOOK_SECRET ='3642##########1d320d7025e79cc7'
+FACEBOOK_APP_ID='1#########6'
+FACEBOOK_APP_SECRET='3##############37'
 
 
 #EMAIL CONFIGURATION
@@ -172,7 +172,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'rkap95@gmail.com'
-EMAIL_HOST_PASSWORD = 'bhalla123'
+EMAIL_HOST_PASSWORD = '#####'
 DEFAULT_FROM_EMAIL = 'rkap95@gmail.com'
 DEFAULT_TO_EMAIL = 'coochy95@gmail.com'
 
